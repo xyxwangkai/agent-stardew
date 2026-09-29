@@ -31,7 +31,11 @@ export async function startMock(options: MockOptions & { port?: number } = {}) {
         const source = location === 'Farm' && tx === 6 && ty === 2
         add(source ? 'water' : 'tile', source ? '水源' : '可耕地', tx, ty, !source && !(tx === 5 && ty === 5))
       }
-    add(location === 'Farm' ? 'door' : 'bed', location === 'Farm' ? '农舍入口' : '床', 1, 1, false)
+    if (location === 'Farm') add('door', '农舍入口', 1, 1, false)
+    else {
+      add('bed', '床', 1, 1, false)
+      add('door', '农舍出口', 2, 4, false)
+    }
     const menuOptions: { ref: string; label: string }[] = []
     if (menu) for (const [i, label] of ['是', '否'].entries()) {
       const ref = `@${snapshotId}:m${i + 1}`; refs.set(ref, { kind: 'menu', x, y, location, menu }); menuOptions.push({ ref, label })
@@ -76,7 +80,10 @@ export async function startMock(options: MockOptions & { port?: number } = {}) {
       tiles.set(key, tile)
     } else if (r.command === 'interact') {
       if (Math.abs(x - target!.x) + Math.abs(y - target!.y) > 1) fault('OUT_OF_REACH', '目标太远。')
-      if (target!.kind === 'door') { location = 'FarmHouse'; x = 2; y = 1 }
+      if (target!.kind === 'door') {
+        if (location === 'Farm') { location = 'FarmHouse'; x = 2; y = 1 }
+        else { location = 'Farm'; x = 2; y = 2 }
+      }
       else if (target!.kind === 'bed') menu = randomUUID()
       else fault('UNSUPPORTED', '目标没有交互。')
     } else if (r.command === 'menu') {

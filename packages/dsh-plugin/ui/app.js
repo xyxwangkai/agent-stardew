@@ -143,10 +143,11 @@ function renderInventory(snapshot) {
 function renderEvents(events) {
   const key = JSON.stringify(events); if (eventsKey === key) return; eventsKey = key; $('events').replaceChildren();
   if (!events.length) { const p = document.createElement('p'); p.className = 'empty'; p.textContent = '小助手的第一篇农场日记，等你来开启。'; $('events').append(p); return; }
+  const kinds = { start: '开始', plan: '计划', decision: '决策', action: '执行', status: '状态', settled: '结束', goal: '目标', refresh: '刷新', notice: '提示' };
   for (const event of [...events].reverse()) {
     const row = document.createElement('div'); row.className = 'event'; row.dataset.kind = event.kind;
     const time = document.createElement('time'); time.dateTime = event.at; time.textContent = new Date(event.at).toLocaleTimeString('zh-CN', { hour12: false });
-    const text = document.createElement('div'); text.textContent = event.message; row.append(time, text); $('events').append(row);
+    const text = document.createElement('div'); text.textContent = `${kinds[event.kind] || event.kind} · ${event.message}`; row.append(time, text); $('events').append(row);
   }
 }
 function render(s) {

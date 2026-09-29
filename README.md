@@ -76,6 +76,8 @@ pnpm dev --mock
 
 `setup` 创建本仓库 `work/dsh/` 下的独立 dsh 环境。`dev --mock` 启动模拟农场与 dsh Web UI，退出时关闭自己启动的进程。模拟结果明确标记为 `mock`。重复运行 setup 保留已有的 dsh 配置和会话。
 
+源码断点调试使用仓库的 `agent-stardew.code-workspace` 启动配置，并将 deepseek-harness 源码仓库放在本仓库的同级目录。该配置通过 `dev --mock --jev --direct` 在当前 Node 进程内运行 dsh，使两个仓库的 source map 断点无需附加子进程即可命中。
+
 另一个终端可以直接调用 CLI：
 
 ```sh

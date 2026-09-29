@@ -1,0 +1,64 @@
+{
+	"folders": [
+		{
+			"name": "agent-stardew",
+			"path": "."
+		},
+		{
+			"name": "deepseek-harness",
+			"path": "../deepseek-harness"
+		}
+	],
+	"settings": {},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			{
+				"name": "Agent Stardew: Mock + Jev",
+				"type": "node",
+				"request": "launch",
+				"runtimeExecutable": "node",
+				"runtimeArgs": ["--import", "tsx/esm"],
+				"program": "${workspaceFolder:agent-stardew}/scripts/dev.mjs",
+				"args": ["--mock", "--jev", "--direct"],
+				"cwd": "${workspaceFolder:agent-stardew}",
+				"env": {
+					"DSH_PATH": "${workspaceFolder:deepseek-harness}/apps/cli/src/bin.ts",
+					"TSX_TSCONFIG_PATH": "${workspaceFolder:deepseek-harness}/tsconfig.json"
+				},
+				"console": "integratedTerminal",
+				"autoAttachChildProcesses": false,
+				"sourceMaps": true,
+				"outFiles": [
+					"${workspaceFolder:agent-stardew}/packages/*/dist/**/*.js",
+					"${workspaceFolder:deepseek-harness}/apps/cli/lib/**/*.js",
+					"${workspaceFolder:deepseek-harness}/packages/*/*/lib/**/*.js"
+				],
+				"skipFiles": ["<node_internals>/**"]
+			},
+			{
+				"name": "Agent Stardew: Game + Jev",
+				"type": "node",
+				"request": "launch",
+				"runtimeExecutable": "node",
+				"runtimeArgs": ["--import", "tsx/esm"],
+				"program": "${workspaceFolder:agent-stardew}/scripts/dev.mjs",
+				"args": ["--jev", "--direct"],
+				"cwd": "${workspaceFolder:agent-stardew}",
+				"env": {
+					"DSH_PATH": "${workspaceFolder:deepseek-harness}/apps/cli/src/bin.ts",
+					"TSX_TSCONFIG_PATH": "${workspaceFolder:deepseek-harness}/tsconfig.json"
+				},
+				"console": "integratedTerminal",
+				"autoAttachChildProcesses": false,
+				"sourceMaps": true,
+				"outFiles": [
+					"${workspaceFolder:agent-stardew}/packages/*/dist/**/*.js",
+					"${workspaceFolder:deepseek-harness}/apps/cli/lib/**/*.js",
+					"${workspaceFolder:deepseek-harness}/packages/*/*/lib/**/*.js"
+				],
+				"skipFiles": ["<node_internals>/**"]
+			}
+		]
+	}
+}

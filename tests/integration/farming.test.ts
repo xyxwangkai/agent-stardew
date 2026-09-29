@@ -18,6 +18,11 @@ test('[mock] 经协议完成五块播种浇水、进屋、选睡觉并确认日�
   assert.equal(grown.length, 5); assert.equal(mock.snapshot().inventory.some(i => i.slot === 2), false)
   let target = mock.snapshot().entities.find(e => e.kind === 'door')!.ref
   await run('move', { near: target }); await run('interact', { target })
+  target = mock.snapshot().entities.find(e => e.kind === 'door')!.ref
+  await run('move', { near: target }); await run('interact', { target })
+  assert.equal(mock.snapshot().location, 'Farm')
+  target = mock.snapshot().entities.find(e => e.kind === 'door')!.ref
+  await run('move', { near: target }); await run('interact', { target })
   target = mock.snapshot().entities.find(e => e.kind === 'bed')!.ref
   await run('move', { near: target }); await run('interact', { target })
   await run('menu', { target: mock.snapshot().menu!.options[0].ref })
