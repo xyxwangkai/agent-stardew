@@ -29,6 +29,12 @@
 				"console": "integratedTerminal",
 				"autoAttachChildProcesses": false,
 				"sourceMaps": true,
+				"pauseForSourceMap": true,
+				"resolveSourceMapLocations": [
+					"${workspaceFolder:agent-stardew}/**",
+					"${workspaceFolder:deepseek-harness}/**",
+					"!**/node_modules/**"
+				],
 				"outFiles": [
 					"${workspaceFolder:agent-stardew}/packages/*/dist/**/*.js",
 					"${workspaceFolder:deepseek-harness}/apps/cli/lib/**/*.js",
@@ -52,6 +58,12 @@
 				"console": "integratedTerminal",
 				"autoAttachChildProcesses": false,
 				"sourceMaps": true,
+				"pauseForSourceMap": true,
+				"resolveSourceMapLocations": [
+					"${workspaceFolder:agent-stardew}/**",
+					"${workspaceFolder:deepseek-harness}/**",
+					"!**/node_modules/**"
+				],
 				"outFiles": [
 					"${workspaceFolder:agent-stardew}/packages/*/dist/**/*.js",
 					"${workspaceFolder:deepseek-harness}/apps/cli/lib/**/*.js",

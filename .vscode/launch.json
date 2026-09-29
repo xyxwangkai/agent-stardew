@@ -17,10 +17,10 @@
       "console": "integratedTerminal",
       "autoAttachChildProcesses": false,
       "sourceMaps": true,
-      "outFiles": [
-        "${workspaceFolder}/packages/*/dist/**/*.js",
-        "/opt/tiger/deepseek-harness/apps/*/lib/**/*.js",
-        "/opt/tiger/deepseek-harness/packages/*/*/lib/**/*.js"
+      "pauseForSourceMap": true,
+      "resolveSourceMapLocations": null,
+      "runtimeSourcemapPausePatterns": [
+        "/opt/tiger/deepseek-harness/**"
       ],
       "skipFiles": ["<node_internals>/**"]
     },
@@ -40,10 +40,10 @@
       "console": "integratedTerminal",
       "autoAttachChildProcesses": false,
       "sourceMaps": true,
-      "outFiles": [
-        "${workspaceFolder}/packages/*/dist/**/*.js",
-        "/opt/tiger/deepseek-harness/apps/*/lib/**/*.js",
-        "/opt/tiger/deepseek-harness/packages/*/*/lib/**/*.js"
+      "pauseForSourceMap": true,
+      "resolveSourceMapLocations": null,
+      "runtimeSourcemapPausePatterns": [
+        "/opt/tiger/deepseek-harness/**"
       ],
       "skipFiles": ["<node_internals>/**"]
     }

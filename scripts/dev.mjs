@@ -45,6 +45,10 @@ try {
     const cli = await import(pathToFileURL(dsh).href)
     if (typeof cli.runCli !== 'function') throw new Error('DSH_PATH 未导出 runCli，无法直接调试。')
     await cli.runCli()
+    if (mock && mock.exitCode === null && mock.signalCode === null) {
+      await new Promise(resolve => { mock.once('exit', resolve) })
+    }
+    if (mock && !stopping) throw new Error(`模拟服务意外退出：${mock.signalCode ?? mock.exitCode}`)
   } else {
     host = spawn(dsh, dshArgs, { cwd: root, stdio: 'inherit', env: withoutDebugger(dshEnv()) })
     await new Promise((resolve, reject) => { host.once('error', reject); host.once('exit', (code, signal) => { process.exitCode = stopping || signal === 'SIGINT' ? 0 : code ?? 1; resolve() }) })
