@@ -17,11 +17,8 @@
       "console": "integratedTerminal",
       "autoAttachChildProcesses": false,
       "sourceMaps": true,
-      "pauseForSourceMap": true,
+      "pauseForSourceMap": false,
       "resolveSourceMapLocations": null,
-      "runtimeSourcemapPausePatterns": [
-        "/opt/tiger/deepseek-harness/**"
-      ],
       "skipFiles": ["<node_internals>/**"]
     },
     {
@@ -40,11 +37,8 @@
       "console": "integratedTerminal",
       "autoAttachChildProcesses": false,
       "sourceMaps": true,
-      "pauseForSourceMap": true,
+      "pauseForSourceMap": false,
       "resolveSourceMapLocations": null,
-      "runtimeSourcemapPausePatterns": [
-        "/opt/tiger/deepseek-harness/**"
-      ],
       "skipFiles": ["<node_internals>/**"]
     }
   ]
