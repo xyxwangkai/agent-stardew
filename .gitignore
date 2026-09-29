@@ -8,7 +8,6 @@ packages/dsh-plugin/ui/assets/
 .env.*
 !.env.example
 .DS_Store
-.vscode/
 **/bin/
 **/obj/
 *.log
