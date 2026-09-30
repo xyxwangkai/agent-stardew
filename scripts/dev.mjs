@@ -1,12 +1,16 @@
 import { createInterface } from 'node:readline'
 import { spawn } from 'node:child_process'
-import { isAbsolute } from 'node:path'
+import { readFile } from 'node:fs/promises'
+import { isAbsolute, join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { parseArgs } from 'node:util'
-import { root, loadState, dsh, dshEnv, profile, run, writeRuntimePatch } from './environment.mjs'
+import { root, loadState, dsh, dshHome, dshEnv, profile, run, writeRuntimePatch } from './environment.mjs'
 const { values } = parseArgs({ options: { mock: { type: 'boolean' }, jev: { type: 'boolean' }, direct: { type: 'boolean' } } })
 const state = await loadState()
 if (!state.setupAt) throw new Error(`请先运行 pnpm run setup${values.mock ? ' --mock' : ''}。`)
+const profileManifest = JSON.parse(await readFile(join(dshHome, 'profiles', profile, 'package.json'), 'utf8'))
+const bundles = profileManifest.dsh?.profile?.bundles
+if (!Array.isArray(bundles) || !bundles.every(bundle => typeof bundle === 'string')) throw new Error(`dsh profile ${profile} 的 bundles 配置无效。`)
 const withoutDebugger = env => {
   const clean = { ...env }
   delete clean.NODE_OPTIONS
@@ -17,6 +21,7 @@ const buildEnv = withoutDebugger(process.env)
 await run(process.execPath, ['scripts/build.mjs'], { env: buildEnv })
 await writeRuntimePatch(state, { mock: values.mock, jev: values.jev ?? state.jevEnabled })
 console.log(`星露谷：${values.mock ? '模拟农场' : '真实游戏'}；Jev：${(values.jev ?? state.jevEnabled) ? '开启' : '关闭'}。`)
+console.log(`dsh 启动组合包：${bundles.join('、')}。`)
 console.log('打开 dsh 地址后的 /stardew 页面，输入目标并开始；Jev 模式无需配置聊天模型。')
 let mock
 let host

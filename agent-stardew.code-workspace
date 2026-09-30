@@ -7,6 +7,13 @@
 		{
 			"name": "deepseek-harness",
 			"path": "../deepseek-harness"
+		},
+		{
+			"name": "dsh-memgas",
+			"path": "../dsh-memgas"
+		},
+		{
+			"path": "../dsh-plugin"
 		}
 	],
 	"settings": {},
@@ -14,60 +21,70 @@
 		"version": "0.2.0",
 		"configurations": [
 			{
-				"name": "Agent Stardew: Mock + Jev",
+				"name": "Agent Stardew: Mock + Jev (MemGAS Debug)",
 				"type": "node",
 				"request": "launch",
 				"runtimeExecutable": "node",
-				"runtimeArgs": ["--import", "tsx/esm"],
+				"runtimeArgs": ["--enable-source-maps", "--import", "tsx/esm"],
 				"program": "${workspaceFolder:agent-stardew}/scripts/dev.mjs",
 				"args": ["--mock", "--jev", "--direct"],
 				"cwd": "${workspaceFolder:agent-stardew}",
 				"env": {
-					"DSH_PATH": "${workspaceFolder:deepseek-harness}/apps/cli/src/bin.ts",
+					"DSH_PATH": "${workspaceFolder:deepseek-harness}/apps/cli/lib/bin.js",
 					"TSX_TSCONFIG_PATH": "${workspaceFolder:deepseek-harness}/tsconfig.json"
 				},
 				"console": "integratedTerminal",
 				"autoAttachChildProcesses": false,
 				"sourceMaps": true,
+				"sourceMapPathOverrides": {
+					"../*": "${workspaceFolder:dsh-memgas}/*"
+				},
 				"pauseForSourceMap": true,
 				"resolveSourceMapLocations": [
 					"${workspaceFolder:agent-stardew}/**",
 					"${workspaceFolder:deepseek-harness}/**",
+					"${workspaceFolder:dsh-memgas}/**",
 					"!**/node_modules/**"
 				],
 				"outFiles": [
 					"${workspaceFolder:agent-stardew}/packages/*/dist/**/*.js",
 					"${workspaceFolder:deepseek-harness}/apps/cli/lib/**/*.js",
-					"${workspaceFolder:deepseek-harness}/packages/*/*/lib/**/*.js"
+					"${workspaceFolder:deepseek-harness}/packages/*/*/lib/**/*.js",
+					"${workspaceFolder:dsh-memgas}/dist/**/*.js"
 				],
 				"skipFiles": ["<node_internals>/**"]
 			},
 			{
-				"name": "Agent Stardew: Game + Jev",
+				"name": "Agent Stardew: Game + Jev (MemGAS Debug)",
 				"type": "node",
 				"request": "launch",
 				"runtimeExecutable": "node",
-				"runtimeArgs": ["--import", "tsx/esm"],
+				"runtimeArgs": ["--enable-source-maps", "--import", "tsx/esm"],
 				"program": "${workspaceFolder:agent-stardew}/scripts/dev.mjs",
 				"args": ["--jev", "--direct"],
 				"cwd": "${workspaceFolder:agent-stardew}",
 				"env": {
-					"DSH_PATH": "${workspaceFolder:deepseek-harness}/apps/cli/src/bin.ts",
+					"DSH_PATH": "${workspaceFolder:deepseek-harness}/apps/cli/lib/bin.js",
 					"TSX_TSCONFIG_PATH": "${workspaceFolder:deepseek-harness}/tsconfig.json"
 				},
 				"console": "integratedTerminal",
 				"autoAttachChildProcesses": false,
 				"sourceMaps": true,
+				"sourceMapPathOverrides": {
+					"../*": "${workspaceFolder:dsh-memgas}/*"
+				},
 				"pauseForSourceMap": true,
 				"resolveSourceMapLocations": [
 					"${workspaceFolder:agent-stardew}/**",
 					"${workspaceFolder:deepseek-harness}/**",
+					"${workspaceFolder:dsh-memgas}/**",
 					"!**/node_modules/**"
 				],
 				"outFiles": [
 					"${workspaceFolder:agent-stardew}/packages/*/dist/**/*.js",
 					"${workspaceFolder:deepseek-harness}/apps/cli/lib/**/*.js",
-					"${workspaceFolder:deepseek-harness}/packages/*/*/lib/**/*.js"
+					"${workspaceFolder:deepseek-harness}/packages/*/*/lib/**/*.js",
+					"${workspaceFolder:dsh-memgas}/dist/**/*.js"
 				],
 				"skipFiles": ["<node_internals>/**"]
 			}
